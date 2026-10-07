@@ -30,10 +30,9 @@ node scripts/serve.mjs                          # local preview, SDK off
 npm run traffic -- --url http://localhost:4173 --minutes 2
 ```
 
-Deploying goes through the Vercel REST API and needs a `.env.deploy` (gitignored):
+Deploying needs a logged-in Vercel CLI and a `.env.deploy` (gitignored):
 
 ```sh
-VERCEL_TOKEN=...
 APPERIO_PROJECT_ID=...
 APPERIO_API_KEY=...
 ```
