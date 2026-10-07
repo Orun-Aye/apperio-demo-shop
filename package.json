@@ -1,0 +1,20 @@
+{
+  "name": "apperio-demo-shop",
+  "version": "2.4.0",
+  "private": true,
+  "description": "A small storefront instrumented with the apperio SDK. Its errors, deploys and commits feed the Demo Shop project on apperio.dev.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs && npx vercel dev",
+    "deploy": "node scripts/deploy.mjs",
+    "traffic": "node traffic/run.mjs"
+  },
+  "dependencies": {
+    "apperio": "1.5.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "playwright": "^1.63.0"
+  }
+}
