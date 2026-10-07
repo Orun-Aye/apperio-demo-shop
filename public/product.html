@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product · Demo Shop</title>
+  <link rel="stylesheet" href="/css/shop.css">
+  <script src="/config.js"></script>
+  <script type="module" src="/js/app.js"></script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="/">Demo<span>Shop</span></a>
+      <nav class="main"><a href="/">Shop</a><a href="/product?id=grinder">Grinders</a><a href="/product?id=kettle">Kettles</a></nav>
+      <div class="header-right">
+        <span data-account>…</span>
+        <a class="cart-link" href="/cart">Cart <span class="badge" data-cart-count>0</span></a>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="product" data-product-detail><p class="muted">Loading…</p></section>
+    <h2 class="section">You might also like</h2>
+    <div class="grid" data-recs></div>
+  </main>
+  <footer class="site"><div class="wrap">A sample store for the Apperio demo project. Nothing here ships.</div></footer>
+  <script type="module">
+    import { initProduct } from "/js/catalog.js";
+    initProduct();
+  </script>
+</body>
+</html>
