@@ -53,16 +53,15 @@ if (!existsSync(".vercel/project.json")) {
 }
 
 console.log(`deploy: ${release} (${sha.slice(0, 7)}) ${subject}`);
-const url = vercel(
+const output = vercel(
   [
     "deploy --prod --yes",
     `--build-env APP_RELEASE=${release}`,
     `--build-env APPERIO_PROJECT_ID=${APPERIO_PROJECT_ID}`,
     `--build-env APPERIO_API_KEY=${APPERIO_API_KEY}`,
   ].join(" ")
-)
-  .split(/\s+/)
-  .pop();
+);
+const url = output.match(/https:\/\/\S+\.vercel\.app/)?.[0] ?? "(url not printed)";
 console.log(`deploy: built ${url}, live at https://${DOMAIN}`);
 
 const res = await fetch(`${apperio}/projects/${APPERIO_PROJECT_ID}/deployments`, {

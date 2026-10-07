@@ -62,7 +62,11 @@ async function visit(browser, n) {
       const cards = page.locator("[data-grid] [data-product], [data-recs] [data-product]");
       const count = await cards.count();
       if (!count) break;
+      // Wait for the new URL, or a product page already on screen would
+      // satisfy the selector below before the next one has loaded
+      const before = page.url();
       await cards.nth(Math.floor(Math.random() * count)).click();
+      await page.waitForURL((u) => u.href !== before, { timeout: 20000 });
       await page.waitForSelector("[data-add]", { timeout: 20000 });
       steps.push("product");
       await pause(1500, 4000);
