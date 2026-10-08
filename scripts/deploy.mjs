@@ -54,14 +54,24 @@ if (!existsSync(".vercel/project.json")) {
 }
 
 console.log(`deploy: ${release} (${sha.slice(0, 7)}) ${subject}`);
-const output = vercel(
-  [
-    "deploy --prod --yes",
-    `--build-env APP_RELEASE=${release}`,
-    `--build-env APPERIO_PROJECT_ID=${APPERIO_PROJECT_ID}`,
-    `--build-env APPERIO_API_KEY=${APPERIO_API_KEY}`,
-  ].join(" ")
-);
+const deployArgs = [
+  "deploy --prod --yes",
+  `--build-env APP_RELEASE=${release}`,
+  `--build-env APPERIO_PROJECT_ID=${APPERIO_PROJECT_ID}`,
+  `--build-env APPERIO_API_KEY=${APPERIO_API_KEY}`,
+].join(" ");
+// A dropped connection fails the whole deploy ("fetch failed"), so try again
+let output;
+for (let attempt = 1; ; attempt++) {
+  try {
+    output = vercel(deployArgs);
+    break;
+  } catch (err) {
+    if (attempt >= 4) throw err;
+    console.warn(`deploy: Vercel attempt ${attempt} failed, retrying in 30s`);
+    await new Promise((r) => setTimeout(r, 30_000));
+  }
+}
 const url = output.match(/https:\/\/\S+\.vercel\.app/)?.[0] ?? "(url not printed)";
 console.log(`deploy: built ${url}, live at https://${DOMAIN}`);
 
