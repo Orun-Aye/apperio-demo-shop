@@ -32,7 +32,8 @@ if (!APPERIO_PROJECT_ID || !APPERIO_API_KEY) {
 
 const run = (cmd, opts = {}) =>
   execSync(cmd, { encoding: "utf8", stdio: ["ignore", "pipe", "inherit"], ...opts }).trim();
-const vercel = (args, opts) => run(`npx --no-install vercel ${args}`, opts);
+// VERCEL_CLI lets a machine point at a specific installed CLI instead of npx
+const vercel = (args, opts) => run(`${process.env.VERCEL_CLI || "npx --yes vercel"} ${args}`, opts);
 
 if (run("git status --porcelain")) {
   console.error("deploy: commit your changes first, the deploy is tied to a SHA");
