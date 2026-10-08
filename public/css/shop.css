@@ -1,0 +1,71 @@
+:root {
+  --bg: #fbf8f4;
+  --surface: #ffffff;
+  --ink: #2a2622;
+  --ink-2: #6b625a;
+  --line: #e8e1d9;
+  --accent: #b5562b;
+  --accent-ink: #ffffff;
+  --radius: 12px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: inherit; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+header.site { border-bottom: 1px solid var(--line); background: var(--surface); }
+header.site .wrap { display: flex; align-items: center; gap: 24px; height: 64px; }
+.logo { font-weight: 700; letter-spacing: -0.02em; text-decoration: none; font-size: 18px; }
+.logo span { color: var(--accent); }
+nav.main { display: flex; gap: 18px; font-size: 14px; color: var(--ink-2); }
+nav.main a { text-decoration: none; }
+.header-right { margin-left: auto; display: flex; gap: 16px; align-items: center; font-size: 14px; color: var(--ink-2); }
+.cart-link { text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
+.badge { background: var(--ink); color: #fff; border-radius: 999px; padding: 1px 8px; font-size: 12px; }
+
+main.wrap { padding: 40px 20px 72px; }
+h1 { font-size: 32px; letter-spacing: -0.02em; margin: 0 0 8px; }
+.lead { color: var(--ink-2); font-size: 17px; margin: 0 0 24px; }
+.muted { color: var(--ink-2); }
+
+.hero { display: grid; gap: 8px; margin-bottom: 32px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.card { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; text-decoration: none; transition: border-color .15s; }
+.card:hover { border-color: var(--accent); }
+.card h3 { font-size: 16px; margin: 12px 0 4px; }
+.card p { font-size: 13px; color: var(--ink-2); margin: 0 0 10px; }
+.price { font-weight: 600; }
+.price-lg { font-size: 22px; margin: 0 0 20px; }
+
+.thumb { aspect-ratio: 4 / 3; border-radius: 8px; background: #efe7dc; }
+.thumb-lg { aspect-ratio: 1; }
+.thumb-pour-over { background: radial-gradient(circle at 50% 40%, #f4efe8 0 30%, #d9c7b2 31% 45%, #efe7dc 46%); }
+.thumb-grinder { background: linear-gradient(180deg, #efe7dc 0 20%, #3d3631 20% 70%, #a68b6d 70% 80%, #efe7dc 80%); }
+.thumb-kettle { background: radial-gradient(ellipse at 50% 60%, #c9c3bc 0 32%, #efe7dc 33%); }
+.thumb-filters { background: repeating-linear-gradient(90deg, #f7f1e8 0 10px, #ebe0d0 10px 12px); }
+.thumb-scale { background: radial-gradient(ellipse at 50% 55%, #2f2b28 0 38%, #efe7dc 39%); }
+.thumb-travel-mug { background: linear-gradient(90deg, #efe7dc 0 35%, #b5562b 35% 65%, #efe7dc 65%); }
+
+.product { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+@media (max-width: 720px) { .product { grid-template-columns: 1fr; } }
+
+.btn { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 999px; padding: 12px 22px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+.btn:hover { filter: brightness(1.05); }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.lines { list-style: none; margin: 0; padding: 0; }
+.lines li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.total { display: flex; justify-content: space-between; font-weight: 700; margin: 14px 0 0; }
+
+.checkout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: start; }
+@media (max-width: 720px) { .checkout { grid-template-columns: 1fr; } }
+form.fields { display: grid; gap: 14px; }
+label { display: grid; gap: 6px; font-size: 13px; color: var(--ink-2); }
+input { font: inherit; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.status { min-height: 1.5em; font-size: 14px; }
+
+h2.section { font-size: 18px; margin: 48px 0 14px; }
+footer.site { border-top: 1px solid var(--line); color: var(--ink-2); font-size: 13px; padding: 24px 0 40px; }
