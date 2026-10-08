@@ -1,12 +1,15 @@
 import { logger } from "./apperio.js";
-import { fetchProfile, placeOrder } from "./api.js";
+import { placeOrder } from "./api.js";
 import { cartTotal, clearCart, money, readCart } from "./cart.js";
+import { get as cachedProfile } from "./profile-cache.js";
 import { currentUser } from "./session.js";
 
-export async function initCheckout() {
+export function initCheckout() {
   const cart = readCart();
-  const profile = await fetchProfile(currentUser());
-  renderCheckoutSummary(cart, profile ?? {});
+  // The header already loaded this shopper's profile on the way here, so
+  // reuse it instead of a second round trip before the summary can render.
+  const profile = cachedProfile(currentUser());
+  renderCheckoutSummary(cart, profile);
   bindPlaceOrder(cart);
 }
 
