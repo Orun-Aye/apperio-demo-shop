@@ -1,14 +1,15 @@
 import { logger } from "./apperio.js";
-import { placeOrder } from "./api.js";
+import { fetchProfile, placeOrder } from "./api.js";
 import { cartTotal, clearCart, money, readCart } from "./cart.js";
 import { get as cachedProfile } from "./profile-cache.js";
 import { currentUser } from "./session.js";
 
-export function initCheckout() {
+export async function initCheckout() {
   const cart = readCart();
-  // The header already loaded this shopper's profile on the way here, so
-  // reuse it instead of a second round trip before the summary can render.
-  const profile = cachedProfile(currentUser());
+  const userId = currentUser();
+  // Reuse the header's profile when there is one. Shoppers who never saved a
+  // profile have nothing cached, so ask the API, and fall back to an empty one.
+  const profile = cachedProfile(userId) ?? (await fetchProfile(userId)) ?? {};
   renderCheckoutSummary(cart, profile);
   bindPlaceOrder(cart);
 }
