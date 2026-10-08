@@ -30,6 +30,9 @@ node scripts/serve.mjs                          # local preview, SDK off
 npm run traffic -- --url http://localhost:4173 --minutes 2
 ```
 
+`traffic/run.mjs` takes `--url`, `--minutes`, `--every` (seconds between new shoppers, jittered),
+`--concurrency` (default 5) and `--headed yes` to watch the browser.
+
 Deploying needs a logged-in Vercel CLI and a `.env.deploy` (gitignored):
 
 ```sh
