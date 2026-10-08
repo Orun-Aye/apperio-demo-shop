@@ -1,0 +1,10 @@
+node_modules/
+.vercel/
+.env*
+# Generated at build time from environment variables
+public/config.js
+public/vendor/
+traffic/.runs/
+
+.vercel
+.env*
