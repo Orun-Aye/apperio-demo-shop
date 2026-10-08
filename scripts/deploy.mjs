@@ -64,19 +64,28 @@ const output = vercel(
 const url = output.match(/https:\/\/\S+\.vercel\.app/)?.[0] ?? "(url not printed)";
 console.log(`deploy: built ${url}, live at https://${DOMAIN}`);
 
-const res = await fetch(`${apperio}/projects/${APPERIO_PROJECT_ID}/deployments`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json", "X-API-Key": APPERIO_API_KEY },
-  body: JSON.stringify({
-    environment: "production",
-    release,
-    sha,
-    url: `https://${DOMAIN}`,
-    description: subject,
-    deployedBy: "deploy script",
-    status: "success",
-  }),
-});
+const record = () =>
+  fetch(`${apperio}/projects/${APPERIO_PROJECT_ID}/deployments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-API-Key": APPERIO_API_KEY },
+    body: JSON.stringify({
+      environment: "production",
+      release,
+      sha,
+      url: `https://${DOMAIN}`,
+      description: subject,
+      deployedBy: "deploy script",
+      status: "success",
+    }),
+  }).catch((err) => ({ ok: false, status: 0, json: async () => ({ message: String(err) }) }));
+
+// The API may be waking up or mid-deploy; retry transient failures for ~10 minutes
+let res = await record();
+for (let i = 0; i < 20 && !res.ok && ![400, 403, 404].includes(res.status); i++) {
+  console.warn(`deploy: Apperio answered ${res.status}, retrying in 30s`);
+  await new Promise((r) => setTimeout(r, 30_000));
+  res = await record();
+}
 const body = await res.json().catch(() => ({}));
 if (!res.ok) {
   console.error(`deploy: Apperio rejected the deploy record (${res.status})`, body.message || "");
