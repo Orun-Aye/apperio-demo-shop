@@ -14,7 +14,7 @@
     "apperio": "1.5.0"
   },
   "devDependencies": {
-    "esbuild": "0.25.10",
+    "esbuild": "0.25.12",
     "playwright": "^1.63.0"
   }
 }
